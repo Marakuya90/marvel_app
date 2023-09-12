@@ -33,6 +33,13 @@ class RandomChar extends Component {
         })
     }
 
+    onError = () => {
+        this.setState({
+            loading:false,
+            error:true
+        })
+    }
+
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.onCharLoading();
@@ -41,12 +48,7 @@ class RandomChar extends Component {
         .catch(this.onError )
     }
 
-    onError = () => {
-        this.setState({
-            loading:false,
-            error:true
-        })
-    }
+   
 
     render () {
         const {char,loading,error} = this.state;
@@ -78,7 +80,7 @@ class RandomChar extends Component {
 }
 
 const View = ({char}) => {
-    const {name,discription,thumbnail,homepage,wiki} = char;
+    const {name, description, thumbnail, homepage, wiki} = char;
     return (
         <div className="randomchar__block">
             <img src={thumbnail}
@@ -88,7 +90,7 @@ const View = ({char}) => {
             />
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
-                <p className="randomchar__descr">{discription}</p>
+                <p className="randomchar__descr">{description}</p>
                 <div className="randomchar__btns">
                     <a href={homepage} className="button button__main">
                         <div className="inner">homepage</div>
