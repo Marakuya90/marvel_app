@@ -4,7 +4,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton'
 import { Component } from 'react';
 import MarvelService from '../../services/MarvelService';
-
+import PropTypes from 'prop-types'
 class CharInfo extends Component {
 
     marvelService = new MarvelService();
@@ -128,6 +128,10 @@ const View = ({char}) => {
             </ul>
         </>
     )
+}
+
+CharInfo.propType = {
+    charId: PropTypes.number
 }
  
 export default CharInfo;
