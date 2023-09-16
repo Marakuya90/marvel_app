@@ -9,21 +9,34 @@ class CharList extends Component {
     state = {
         charList: [],
         loading: true,
-        error: false
+        error: false,
+        newItemLoading: false
     }
     
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService.getAllCharacters()
+        this.onRequest()
+    }
+
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
             .then(this.onCharListLoaded)
             .catch(this.onError)
     }
 
+    onCharListLoading(){
+        this.setState({
+            newItemLoading:true
+        })
+    }
+
     onCharListLoaded = (charList) => {
         this.setState({
-            charList,
-            loading: false
+            charList: [],
+            loading: false,
+            newItemLoading:false
         })
     }
 
@@ -76,7 +89,10 @@ class CharList extends Component {
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className="button button__main button__long">
+                <button 
+                className="button button__main button__long"
+                onClick={this.onRequest(this.state.countChar + 9)}
+                >
                     <div className="inner">load more</div>
                 </button>
             </div>

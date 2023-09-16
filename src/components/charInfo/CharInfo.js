@@ -37,7 +37,6 @@ class CharInfo extends Component {
             .getCharacter(charId)
             .then(this.onCharLoaded)
             .catch(this.onError)
-
     }
     
     onCharLoaded = (char) => {
@@ -60,6 +59,7 @@ class CharInfo extends Component {
             error:true
         })
     }
+
 
     render() {
         const {char, loading, error} = this.state;
@@ -86,7 +86,7 @@ const View = ({char}) => {
 
     let imgStyle = {'objectFit' : 'cover'};
         if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'){
-            imgStyle = {'objectFit' : 'unset'}
+            imgStyle = {'objectFit' : 'contain'}
         }
 
     function renderComics(arr) {
