@@ -1,8 +1,9 @@
-import {Component} from 'react';
+import React,{Component} from 'react';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 import './charList.scss';
+import PropTypes from 'prop-types';
 
 class CharList extends Component {
 
@@ -10,15 +11,29 @@ class CharList extends Component {
         charList: [],
         loading: true,
         error: false,
-        offset:1557,
+        offset:210,
         newItemLoading: false,
         charEnded: false
     }
     
+
+    setActiveChar = (char) => {
+        this.activeCharRef = char
+        console.log(this.activeCharRef)
+    }
+
+    setFocus = (char) => {
+        if(this.activeCharRef){
+            char.className.add('char_item_selected')
+        }
+        
+    }
+
     marvelService = new MarvelService();
 
     componentDidMount() {
         this.onRequest()
+        
     }
 
     onRequest = (offset) => {
@@ -67,8 +82,9 @@ class CharList extends Component {
             return (
                 <li 
                     className="char__item"
+                    ref={this.setActiveChar}
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
+                    onClick={(el) => {this.props.onCharSelected(item.id);this.setFocus(el)}}>
                         <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                 </li>
@@ -109,5 +125,7 @@ class CharList extends Component {
         )
     }
 }
-
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired
+}
 export default CharList;

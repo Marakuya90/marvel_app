@@ -44,7 +44,6 @@ class CharInfo extends Component {
             char, 
             loading:false
         })
-        console.log(this.state.char)
     }
 
     onCharLoading = () => {
@@ -130,7 +129,7 @@ const View = ({char}) => {
     )
 }
 
-CharInfo.propType = {
+CharInfo.propTypes = {
     charId: PropTypes.number
 }
  
